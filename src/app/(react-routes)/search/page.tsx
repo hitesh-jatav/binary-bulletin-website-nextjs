@@ -1,13 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { Suspense } from 'react';
 import { useSearchParams } from "next/navigation";
-import { getBlogs } from "@/utils/api";
 import BlogList from "@/components/BlogList";
 
-export default function SearchResults() {
-  const searchParams = useSearchParams(); // Hook to get search params
-  const searchQuery = searchParams.get("q"); // Get the 'q' parameter from the URL
+const SearchResultsWrapper = () => {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("q");
 
-  return <BlogList filter={`search=${searchQuery}`} />;
+  return (
+    <BlogList filter={`search=${searchQuery}`} />
+  );
+};
+
+export default function SearchResults() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchResultsWrapper />
+    </Suspense>
+  );
 }

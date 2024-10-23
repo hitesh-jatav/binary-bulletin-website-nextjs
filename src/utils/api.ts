@@ -7,7 +7,7 @@ export async function getBlogs(page: number, filter?: string) {
     const limit = pageLimit;
     const apiURL = `${serverAPIs.blogs}?skip=${skip}&limit=${limit}&${filter}`;
 
-    const response = await fetch(apiURL, { cache: "no-store" });
+    const response = await fetch(apiURL);
     if (response.ok) {
       const jsonData = await response.json();
       return jsonData || { blogs: [], totalBlogs: 0 };
@@ -21,7 +21,7 @@ export async function getBlogs(page: number, filter?: string) {
 export async function getBlogInfo(id: string) {
   try {
     const apiURL = `${serverAPIs.blogs}/${id}`;
-    const response = await fetch(apiURL, { cache: "no-store" });
+    const response = await fetch(apiURL);
     if (response.ok) {
       const jsonData = await response.json();
       return jsonData || null;
@@ -35,7 +35,7 @@ export async function getBlogInfo(id: string) {
 export async function getCategories(limit?: number) {
   try {
     const apiURL = `${serverAPIs.categories}?limit=${limit}`;
-    const response = await fetch(apiURL, { cache: "no-store" });
+    const response = await fetch(apiURL);
     if (response.ok) {
       const jsonData = await response.json();
       return jsonData;
@@ -49,7 +49,7 @@ export async function getCategories(limit?: number) {
 export async function getCategoryInfo(id?: string) {
   try {
     const apiURL = `${serverAPIs.categories}/${id}`;
-    const response = await fetch(apiURL, { cache: "no-store" });
+    const response = await fetch(apiURL);
     if (response.ok) {
       const jsonData = await response.json();
       return jsonData;
@@ -63,7 +63,7 @@ export async function getCategoryInfo(id?: string) {
 export async function recentBlogs() {
   try {
     const apiURL = `${serverAPIs.blogs}/recent-blogs`;
-    const response = await fetch(apiURL, { cache: "no-store" });
+    const response = await fetch(apiURL);
     if (response.ok) {
       const jsonData = await response.json();
       return jsonData;
