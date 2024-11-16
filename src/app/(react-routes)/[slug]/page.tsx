@@ -34,7 +34,7 @@ export async function generateMetadata({
       },
 
       alternates: {
-        canonical: blogUrl + blog?.meta?.canonical,
+        canonical: blogUrl + '/' + blog?.meta?.canonical,
       },
       robots: {
         index: true,
