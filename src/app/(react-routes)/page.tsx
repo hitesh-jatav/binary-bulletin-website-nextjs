@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ],
     authors: [
       {
-        name: "Binary bulletin ",
+        name: "Binary Bulletin",
       },
     ],
     openGraph: {
@@ -26,7 +26,6 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       url: blogUrl,
     },
-
     alternates: {
       canonical: blogUrl,
     },
@@ -37,6 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
       "max-video-preview": "-1",
       "max-image-preview": "large",
     },
+    icons: [
+      {
+        url: "/logo.png", // 'url' instead of 'src'
+        type: "image/png",
+        sizes: "192x192", // Define icon size
+      },
+    ],
   };
 }
 
