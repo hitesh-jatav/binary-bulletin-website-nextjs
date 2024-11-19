@@ -92,41 +92,39 @@ export default function BlogList({ filter = "" }: BlogListProps) {
       }}
     >
       <div>
-        <div className="mb-2">
-          {filter?.length > 0 && (
-            <a href="/">
-              <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                <i className=" fa-solid ri-home-line"></i>
-              </button>
-            </a>
-          )}
-          {typeFilter?.length > 0 && (
+        {filter?.length > 0 && (
+          <a href="/">
+            <button className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+              <i className=" fa-solid ri-home-line"></i>
+            </button>
+          </a>
+        )}
+        {typeFilter?.length > 0 && (
+          <button
+            disabled
+            className="mx-1 bg-transparen font-semibold  py-2 text-blue-700 px-4 border border-blue-500 rounded"
+          >
+            {typeFilter}
+          </button>
+        )}
+        {filterText?.length > 0 && (
+          <button
+            disabled
+            className="mx-1 bg-transparen font-semibold  py-2 text-blue-700 px-4 border border-blue-500 rounded"
+          >
+            {filterText}
+          </button>
+        )}
+        {typeFilter === "search" && (
+          <a href="/">
             <button
               disabled
-              className="mx-1 bg-transparen font-semibold  py-2 text-blue-700 px-4 border border-blue-500 rounded"
+              className="mx-1 bg-transparen font-semibold  py-2 text-red-500 px-4 border border-red-500 rounded"
             >
-              {typeFilter}
+              <i className="ri-close-line"></i>
             </button>
-          )}
-          {filterText?.length > 0 && (
-            <button
-              disabled
-              className="mx-1 bg-transparen font-semibold  py-2 text-blue-700 px-4 border border-blue-500 rounded"
-            >
-              {filterText}
-            </button>
-          )}
-          {typeFilter === "search" && (
-            <a href="/">
-              <button
-                disabled
-                className="mx-1 bg-transparen font-semibold  py-2 text-red-500 px-4 border border-red-500 rounded"
-              >
-                <i className="ri-close-line"></i>
-              </button>
-            </a>
-          )}
-        </div>
+          </a>
+        )}
 
         {isLoading && <PageLoader />}
 
@@ -142,6 +140,7 @@ export default function BlogList({ filter = "" }: BlogListProps) {
               user={post.user}
               imageSrc={post.image}
               category={post.category}
+              publishedDate={post.publishedDate}
             />
           ))}
       </div>

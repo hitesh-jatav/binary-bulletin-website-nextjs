@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function () {
   return (
     <div
-      className="d-flex justify-content-center align-items-center"
+      className="d-flex justify-content-center align-items-center my-5"
       style={{
         height: "550px",
         borderTop: "1px solid grey",
