@@ -27,14 +27,14 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
       href={href}
       className="block mb-4 bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-0 mt-2"
       style={{
-        height: '200px',
+        // height: '200px',
         overflow: 'hidden'
       }}
     >
       <article className="overflow-hidden  m-0">
         <div className="flex flex-col sm:flex-row">
           <div className="relative w-full sm:w-1/3 h-64 sm:h-auto p-2" style={{
-            height: '200px'
+            maxHeight: '200px',
           }}>
             <Image
               className="rounded-lg object-cover"
@@ -48,10 +48,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </div>
 
           <div className="flex-1 px-2">
-
-            {/* <span className="uppercase tracking-wide inline-block px-2 rounded-full text-xs bg-gray-300 text-gray-600 p-1">
-              {category}
-            </span> */}
             <h4 className="text-lg capitalize font-semibold text-gray-800 mt-2">
               {title}
             </h4>

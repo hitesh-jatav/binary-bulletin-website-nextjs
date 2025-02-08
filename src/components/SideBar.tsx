@@ -1,9 +1,13 @@
+"use client"
+import React, { useState } from "react";
 import { sluggify } from "@/helpers/common.helper";
-import React from "react";
 import { getCategories, recentBlogs } from "@/utils/api";
 import SearchInput from "./SearchInput";
 
 export default async function SideBar() {
+  const [isRecentsOpen, setIsRecentsOpen] = useState(false);
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+
   const linkStyle = {
     display: "flex",
     alignItems: "center",
@@ -19,46 +23,65 @@ export default async function SideBar() {
   const titleStyle = "font-bold text-lg mb-2";
   const linkClass = "text-gray-700 mt-2 block hover:text-gray-900 my-1 text-lg";
 
+  const toggleRecents = () => setIsRecentsOpen(!isRecentsOpen);
+  const toggleCategories = () => setIsCategoriesOpen(!isCategoriesOpen);
+
   return (
     <div>
       <SearchInput />
 
+      {/* Recents Section */}
       <div className={sectionStyle}>
-        <h3 className={titleStyle}>Recents</h3>
-        {recents.map((elm: any) => (
-          <a
-            href={`/${sluggify(elm.title)}`}
-            key={elm._id}
-            className={linkClass}
-            style={linkStyle}
-          >
-            {elm.title}
-          </a>
-        ))}
+        <h3 className={titleStyle} onClick={toggleRecents}>
+          Recents
+        </h3>
+        <div
+          className={`${isRecentsOpen ? "block" : "hidden"
+            } md:block`} // Toggle visibility based on state
+        >
+          {recents.map((elm: any) => (
+            <a
+              href={`/${sluggify(elm.title)}`}
+              key={elm._id}
+              className={linkClass}
+              style={linkStyle}
+            >
+              {elm.title}
+            </a>
+          ))}
+        </div>
       </div>
 
+      {/* Categories Section */}
       <div className={sectionStyle}>
-        <h3 className={titleStyle}>Categories </h3>
-        {categories.map((elm: any, index: number) => (
-          <a
-            href={`/category/${sluggify(elm.name)}`}
-            key={elm._id}
-            className={linkClass}
-            style={linkStyle}
-          >
-            {elm.name}
-          </a>
-        ))}
-        <a
-          href="/all-categories"
-          className={linkClass}
-          style={{
-            ...linkStyle,
-            color: "blue",
-          }}
+        <h3 className={titleStyle} onClick={toggleCategories}>
+          Categories
+        </h3>
+        <div
+          className={`${isCategoriesOpen ? "block" : "hidden"
+            } md:block`} // Toggle visibility based on state
         >
-          All Categories...
-        </a>
+          {categories.map((elm: any, index: number) => (
+            <a
+              href={`/category/${sluggify(elm.name)}`}
+              key={elm._id}
+              className={linkClass}
+              style={linkStyle}
+            >
+              {elm.name}
+            </a>
+          ))}
+          <a
+            href="/all-categories"
+            className={linkClass}
+            style={{
+              ...linkStyle,
+              color: "blue",
+            }}
+          >
+            All Categories...
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -73,3 +73,17 @@ export async function recentBlogs() {
   }
   return [];
 }
+
+export async function getCoursesInfo(id?: string) {
+  try {
+    const apiURL = `${serverAPIs.getCoursesInfo}`;
+    const response = await fetch(apiURL);
+    if (response.ok) {
+      const jsonData = await response.json();
+      return jsonData;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+  return [];
+}
