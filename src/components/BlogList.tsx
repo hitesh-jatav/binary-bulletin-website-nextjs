@@ -31,7 +31,6 @@ export default function BlogList({ filter = "" }: BlogListProps) {
           setFilterText(filterParts[1]);
         }
       }
-      console.log(data);
       setBlogs(data.blogs);
       setTotalPages(data?.totalPages || 1);
     } catch (error) {

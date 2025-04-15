@@ -11,41 +11,46 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const blog = await getBlogInfo(params.slug);
-  if (blog) {
-    return {
-      title: blog?.meta?.title || blog.title,
-      description: blog?.meta?.desc,
-      keywords: blog?.meta?.keywords || blog?.tags,
-      authors: [
-        {
-          name: "Binary bulletin ",
-        },
-      ],
-      openGraph: {
-        title: (blog?.meta?.title || blog.title) + " | Binary bulletin",
-        description: blog?.meta?.desc,
-        type: "article",
-        url: `${blogUrl + "/" + blog?.meta?.canonical}`,
-        publishedTime: blog.createdAt,
-        modifiedTime: blog.updatedAt,
-        authors: [blogUrl + "/about"],
-        tags: blog.tags,
-      },
+  try {
+    const blog = await getBlogInfo(params.slug);
 
-      alternates: {
-        canonical: blogUrl + '/' + blog?.meta?.canonical,
-      },
-      robots: {
-        index: true,
-        follow: true,
-        "max-snippet": -1,
-        "max-video-preview": "-1",
-        "max-image-preview": "large",
-      },
-    };
+    if (blog) {
+      const title = blog?.meta?.title || blog.title;
+      const description = blog?.meta?.desc || "";
+      const canonical = blog?.meta?.canonical || params.slug;
+
+      return {
+        title,
+        description,
+        keywords: blog?.meta?.keywords || blog?.tags || [],
+        authors: [{ name: "Binary bulletin" }],
+        openGraph: {
+          title: `${title} | Binary bulletin`,
+          description,
+          type: "article",
+          url: `${blogUrl}/${canonical}`,
+          publishedTime: blog.createdAt,
+          modifiedTime: blog.updatedAt,
+          authors: [`${blogUrl}/about`],
+          tags: blog.tags || [],
+        },
+        alternates: {
+          canonical: `${blogUrl}/${canonical}`,
+        },
+        robots: {
+          index: true,
+          follow: true,
+          "max-snippet": -1,
+          "max-video-preview": "-1",
+          "max-image-preview": "large",
+        },
+      };
+    }
+  } catch (error) {
+    console.error("generateMetadata error:", error);
   }
 
+  // fallback in case blog is null or error occurs
   return {
     title: "Blog not found",
     description: "The blog you are looking for could not be found.",
